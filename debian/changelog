@@ -1,3 +1,11 @@
+python-idna (3.18-1~vitex2) unstable; urgency=medium
+
+  * Fix build failure on distros with older flit_core (e.g. bookworm):
+    rewrite pyproject.toml's PEP 639 SPDX string license field to the
+    legacy table form in override_dh_auto_configure before building.
+
+ -- Vítězslav Dvořák <info@vitexsoftware.cz>  Tue, 28 Jul 2026 04:56:47 +0200
+
 python-idna (3.18-1~vitex1) unstable; urgency=medium
 
   * Update to upstream 3.18, required by httpx2 2.9.1 for the mcprack

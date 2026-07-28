@@ -4,3 +4,14 @@ export PYBUILD_NAME=idna
 
 %:
 	dh $@ --with python3 --buildsystem=pybuild
+
+# idna 3.18's pyproject.toml uses PEP 639 SPDX string license metadata
+# (license = "BSD-3-Clause") which requires a newer flit_core than the one
+# packaged on some supported distros (e.g. Debian 12/bookworm), causing
+# flit_core.config.ConfigError: license field should be <class 'dict'>, not
+# <class 'str'>. Rewrite to the old table form before building so the build
+# succeeds uniformly across all supported distros.
+override_dh_auto_configure:
+	sed -i 's/^license = "BSD-3-Clause"$$/license = {text = "BSD-3-Clause"}/' pyproject.toml
+	sed -i '/^license-files = /d' pyproject.toml
+	dh_auto_configure
