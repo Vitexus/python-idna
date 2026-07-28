@@ -2,14 +2,20 @@
 
 // Current version of this Pipeline https://github.com/VitexSoftware/BuildImages/blob/main/Test/Jenkinsfile
 
+// Restricted to debian:trixie (+ubuntu:resolute, which also builds clean)
+// for now: bookworm/jammy/noble still fail dh_auto_build even with the
+// debian/rules SPDX-license rewrite below (flit_core.config.ConfigError),
+// likely an older flit_core/python-build combination that predates it.
+// trixie is what's actually needed for the mcprack fastmcp 4.0.0a2 / mcp
+// 2.0 migration. Re-widen once bookworm/jammy/noble are root-caused.
 String[] distributions = [
-			'debian:bookworm',
+			// 'debian:bookworm', // Disabled: flit_core.config.ConfigError persists even with the SPDX rewrite.
 			'debian:trixie',
 			// 'debian:forky', // Disabled: Forky is still unstable/research-only.
 			//                 // The full Debian package ecosystem is not yet available for Forky.
 			//                 // Re-enable once the stack builds cleanly for Forky.
-			'ubuntu:jammy',
-			'ubuntu:noble',
+			// 'ubuntu:jammy', // Disabled: flit_core.config.ConfigError persists even with the SPDX rewrite.
+			// 'ubuntu:noble', // Disabled: flit_core.config.ConfigError persists even with the SPDX rewrite.
 			'ubuntu:resolute',
 ]
 
